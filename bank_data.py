@@ -21,15 +21,20 @@ def get_data():
             data[row[1]]=[row[2], row[3]]
     return data
 
-def get_price(amount, currency_code, action):
+def get_price(currency_code, action):
     data = get_data()
     if action == 'SELL':
-        value = float(data.get(currency_code)[0])
+        curr_price = float(data.get(currency_code)[0])
     elif action == 'BUY':
-        value = float(data.get(currency_code)[1])
+        curr_price = float(data.get(currency_code)[1])
     else:
-        value = 0
-    
-    price = round(float(amount) * value, 2)
-    return price
+        curr_price = 0
+    return curr_price
 
+def calculate_amount(amount, currency_code, action):
+    curr_price = get_price(currency_code, action)
+    if not amount.isdigit():
+        amount = None
+    else:
+        amount = round(float(amount) * curr_price, 2)
+    return amount

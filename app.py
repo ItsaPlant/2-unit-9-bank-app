@@ -12,9 +12,10 @@ def myapp():
     if request.method == 'POST':
         action = request.form.get('action')
         currency_code = request.form.get('currency')
-        amount = float(request.form.get('amount'))
+        amount = request.form.get('amount')
 
-        value = str(bank_data.get_price(amount, currency_code, action))
+        value = bank_data.calculate_amount(amount, currency_code, action)
+        print(value)
 
     return render_template('currency.html', amount=amount, value=value, currency=currency_code)
 
