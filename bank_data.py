@@ -15,6 +15,7 @@ def create_data():
 
 def get_data():
     data = {}
+    data['PLN'] = ['1', '1']
     with open('currency_rates.csv', newline='') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in csvreader:
@@ -38,3 +39,18 @@ def calculate_amount(amount, currency_code, action):
     else:
         amount = round(float(amount) * curr_price, 2)
     return amount
+
+def calculate_amount_from_pln(amount, currency_code, action):
+    curr_price = get_price(currency_code, action)
+    if not amount.isdigit():
+        amount = None
+    else:
+        amount = round(float(amount) / curr_price, 2)
+    return amount
+
+def calculate(amount, currency_code_to, currency_code_from):
+    from_value_pln = str(int(calculate_amount(amount, currency_code_from, action='SELL')*100))
+    print('pln' + str(from_value_pln))
+    to_value = calculate_amount_from_pln(from_value_pln, currency_code_to, action='BUY')/100
+    print('to' + str(to_value))
+    return to_value
