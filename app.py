@@ -19,10 +19,8 @@ def myapp():
             currency_code_from = request.form.get('currency_payed')
             currency_code_to = currency_code
             value = bank_data.calculate(amount, currency_code_to, currency_code_from)
-            print('xx' + str(value))
         else:
             value = bank_data.calculate_amount(amount, currency_code, action)
-            print('x' + str(value))
 
     return render_template('currency.html', amount=amount, value=value, currency=currency_code, currency_from=currency_code_from)
 

@@ -50,7 +50,5 @@ def calculate_amount_from_pln(amount, currency_code, action):
 
 def calculate(amount, currency_code_to, currency_code_from):
     from_value_pln = str(int(calculate_amount(amount, currency_code_from, action='SELL')*100))
-    print('pln' + str(from_value_pln))
     to_value = calculate_amount_from_pln(from_value_pln, currency_code_to, action='BUY')/100
-    print('to' + str(to_value))
     return to_value
